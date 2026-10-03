@@ -114,14 +114,14 @@ code { font-family: Consolas,"SFMono-Regular",monospace; }
   .header-video { min-height: 0; aspect-ratio: 16 / 9; }
   .header-video > video { object-fit: contain; }
   .container { width: calc(100% - 40px); }
-  .navigation { gap: 16px; min-height: 65px; }
+  .navigation { gap: 16px; min-height: 55px; padding-block: 5px; }
   .paper-intro { padding-top: 44px; }
   .section { padding-block: 46px; }
   .data-table td,.data-table th { padding: 15px; }
 }
 @media (max-width: 600px) {
   .container { width: calc(100% - 32px); }
-  .navigation { flex-wrap: wrap; padding-block: 12px; gap: 12px; }
+  .navigation { flex-wrap: wrap; padding-block: 5px; gap: 12px; }
   .wordmark { font-size: 1.1rem; }
   .brand-symbol { width: 40px; height: 25px; font-size: 11px; margin-right: 7px; }
   .nav-code { margin-left: auto; }
