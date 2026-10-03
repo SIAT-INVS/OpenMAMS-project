@@ -6,6 +6,7 @@
   --tint: #f6f7fb;
   --width: 1100px;
   --header-height: 70px;
+  --nav-blue: #3c5488;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 24px); }
@@ -23,16 +24,22 @@ img,video { display: block; width: 100%; height: auto; }
 .container { width: min(var(--width),calc(100% - 64px)); margin-inline: auto; }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 20; background: #fff; padding: 10px 16px; }
 .skip-link:focus { top: 10px; }
-.site-header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+.site-header { position: sticky; top: 0; z-index: 10; width: 100%; background: var(--nav-blue); border-bottom: 1px solid #30436d; }
+.site-header .wordmark,.site-header .nav-links a,.site-header .nav-code { color: #fff; }
+.site-header a:hover { color: #fff; }
+.site-header a:focus-visible { outline-color: #fff; }
+.site-header .brand-symbol { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.45); }
+.site-header .nav-links a:hover,.site-header .nav-code:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .navigation { display: flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 70px; }
-.navigation.container { width: min(1400px,calc(100% - 48px)); }
+.navigation.container { width: calc(100% - 48px); }
 .navigation .wordmark { flex-shrink: 0; }
 .wordmark { display: inline-flex; align-items: center; color: var(--ink); font-size: 1.25rem; font-weight: 750; letter-spacing: -.04em; line-height: 1; }
 .wordmark:hover { text-decoration: none; }
 .brand-symbol { display: grid; place-items: center; width: 45px; height: 29px; border-radius: 8px; margin-right: 10px; background: var(--accent); color: #fff; font-size: 12px; letter-spacing: .02em; font-weight: 650; }
-.nav-links { display: flex; gap: 18px; }
+.nav-links { display: flex; gap: 28px; }
 .nav-links a { white-space: nowrap; }
 .nav-links a,.nav-code { font-size: .875rem; font-weight: 550; color: #53596d; }
+.nav-links a { font-size: 1rem; letter-spacing: .025em; }
 .nav-code { white-space: nowrap; }
 .nav-code span { margin-left: 8px; }
 .header-video { position: relative; isolation: isolate; width: 100%; min-height: max(24rem,calc(100vh - var(--header-height))); min-height: max(24rem,calc(100svh - var(--header-height))); overflow: hidden; background: #0a0f1a; color: #fff; }
@@ -88,17 +95,17 @@ code { font-family: Consolas,"SFMono-Regular",monospace; }
 .asset-page h1 { font-size: 2.7rem; letter-spacing: -.035em; }
 .asset-page h2 { font-size: 1.65rem; margin: 34px 0 20px; }
 .asset-page p { margin-block: 18px; color: #535b6e; }
-@media (max-width: 1100px) {
+@media (max-width: 1360px) {
   .navigation { flex-wrap: wrap; padding-block: 12px; gap: 12px; }
   .nav-code { margin-left: auto; }
-  .nav-links { order: 3; flex-basis: 100%; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
+  .nav-links { order: 3; flex-basis: 100%; flex-wrap: wrap; justify-content: center; gap: 10px 28px; }
 }
 @media (max-width: 800px) {
   .header-video { min-height: 0; aspect-ratio: 16 / 9; }
   .header-video > video { object-fit: contain; }
   .container { width: calc(100% - 40px); }
   .navigation { gap: 16px; min-height: 65px; }
-  .nav-links { gap: 6px 17px; }
+  .nav-links { gap: 10px 24px; }
   .paper-intro { padding-top: 44px; }
   .section { padding-block: 46px; }
   .data-table td,.data-table th { padding: 15px; }
@@ -110,8 +117,8 @@ code { font-family: Consolas,"SFMono-Regular",monospace; }
   .brand-symbol { width: 40px; height: 25px; font-size: 11px; margin-right: 7px; }
   .nav-code { margin-left: auto; }
   .navigation.container { width: calc(100% - 32px); }
-  .nav-links { gap: 5px 14px; }
-  .nav-links a { font-size: .8125rem; }
+  .nav-links { gap: 8px 20px; }
+  .nav-links a { font-size: .9375rem; }
   .paper-intro { padding: 36px 16px 32px; }
   .project-label { font-size: .9375rem; }
   .paper-title { font-size: 1.3rem; margin: 18px auto 23px; }
