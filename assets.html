@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OpenMAMS aggregates distributed UAV memories for long-horizon question answering. Our memory-centric framework measures what each candidate memory adds, then jointly selects UAVs and allocates transmit power under communication constraints.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="OpenMAMS · Assets">
+  <meta property="og:description" content="OpenMAMS aggregates distributed UAV memories for long-horizon question answering. Our memory-centric framework measures what each candidate memory adds, then jointly selects UAVs and allocates transmit power under communication constraints.">
+  <meta property="og:type" content="website">
+  <title>OpenMAMS · Assets</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234c52cc'/%3E%3Cpath d='M7 23V10l9 7 9-7v13M7 10l9-4 9 4' fill='none' stroke='white' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="project.css">
+  <script src="project.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><nav class="navigation container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html#top" aria-label="OpenMAMS home"><span class="brand-symbol" aria-hidden="true">INVS</span>OpenMAMS</a>
+    <div class="nav-links"><a href="index.html">OpenMAMS</a></div>
+    <a class="nav-code" href="https://github.com/SIAT-INVS/OpenMAMS">GitHub <span aria-hidden="true">↗</span></a>
+  </nav></header>
+  <main id="main" class="asset-page container"><h1 id="assets">Assets</h1>
+<h2 id="panoramic-multi-agent-system-header">Panoramic multi-agent system header</h2>
+<div aria-label="Asset table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>Asset</th>
+<th>Duration</th>
+<th>Resolution</th>
+<th style="text-align: right;">FPS</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="source/assets/pmas-semantic-map.webp">pmas-semantic-map.webp</a></td>
+<td>24 s</td>
+<td>960 × 540</td>
+<td style="text-align: right;">10</td>
+<td>Automatically looping README header preview</td>
+</tr>
+<tr>
+<td><a href="source/assets/pmas-semantic-map.mp4">pmas-semantic-map.mp4</a></td>
+<td>24 s</td>
+<td>1920 × 1080</td>
+<td style="text-align: right;">24</td>
+<td>H.264 video with fast-start playback</td>
+</tr>
+</tbody>
+</table></div>
+<p>The camera rotates around the measured COLMAP point cloud, recorded three-UAV
+trajectories, and semantic observation anchors. This is not a synchronized flight
+replay. Labels mark supporting UAV observation poses, not reconstructed object
+centers; the COLMAP reconstruction has arbitrary scale, not calibrated meters.</p>
+<p>The display uses UAV1 from Pose 50 onward, excludes the isolated UAV2 Pose 105,
+and retains UAV3 unchanged (56, 175, and 123 trajectory points). The 58 semantic
+labels share exactly the same display mask. These are visualization-only filters;
+raw observations and the QA benchmark evidence are unchanged. The map is enlarged
+1.4×, and the only footer reads <code>Panoramic multi-agent system</code> (32 px at 1080p).</p>
+<p>Both files derive from the same final 24-second render; the WebP reduces frame
+rate and resolution for the README without changing playback duration. The MP4
+retains the original resolution and frame rate with web-oriented compression.</p>
+<h2 id="captioned-demos">Captioned demos</h2>
+<div aria-label="Asset table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>Animation</th>
+<th>Duration</th>
+<th>Resolution</th>
+<th style="text-align: right;">FPS</th>
+<th style="text-align: right;">Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="source/assets/town04_4uavs.gif">Town04, K=4</a></td>
+<td>15 s</td>
+<td>960 × 540</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">25.02 MB</td>
+</tr>
+<tr>
+<td><a href="source/assets/town05_10uavs.webp">Town05, K=10</a></td>
+<td>15 s</td>
+<td>1600 × 360</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.28 MB</td>
+</tr>
+</tbody>
+</table></div>
+<p>Both captioned animations loop automatically and are 15 seconds long at 10 FPS.
+Town04 uses a 2 × 2 GIF layout; Town05 uses a 5 × 2 animated WebP layout.</p>
+<h2 id="memntn-paper-figures">MemNTN paper figures</h2>
+<p>Figures from <em>Memory-Native Non-Terrestrial Networks for Embodied Intelligence</em>,
+IEEE Communications Standards Magazine, 2026.</p>
+<div aria-label="Asset table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>Asset</th>
+<th>Figure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="source/assets/memntn_fig1.png">memntn_fig1.png</a></td>
+<td>Satellite-enabled perception and remote question answering</td>
+</tr>
+<tr>
+<td><a href="source/assets/memntn_fig2.png">memntn_fig2.png</a></td>
+<td>System framework</td>
+</tr>
+<tr>
+<td><a href="source/assets/memntn_fig3.png">memntn_fig3.png</a></td>
+<td>Physical and digital memory</td>
+</tr>
+<tr>
+<td><a href="source/assets/memntn_fig4.png">memntn_fig4.png</a></td>
+<td>Simulation setup and evaluation</td>
+</tr>
+</tbody>
+</table></div>
+<p>Figure 1 geographic data sources: OpenStreetMap, LEOPath, and Mega-NeRF/Mill-19.</p></main>
+  <p class="container copy-status" id="copy-status" role="status" aria-live="polite"></p>
+  <footer class="site-footer"><div class="container"><a class="wordmark" href="index.html#top">OpenMAMS</a><a href="https://github.com/SIAT-INVS/OpenMAMS">GitHub ↗</a></div></footer>
+</body>
+</html>

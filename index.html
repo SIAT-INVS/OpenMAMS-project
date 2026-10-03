@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OpenMAMS aggregates distributed UAV memories for long-horizon question answering. Our memory-centric framework measures what each candidate memory adds, then jointly selects UAVs and allocates transmit power under communication constraints.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="OpenMAMS: Open-Sourced Multi-Agent Memory System">
+  <meta property="og:description" content="OpenMAMS aggregates distributed UAV memories for long-horizon question answering. Our memory-centric framework measures what each candidate memory adds, then jointly selects UAVs and allocates transmit power under communication constraints.">
+  <meta property="og:type" content="website">
+  <title>OpenMAMS: Open-Sourced Multi-Agent Memory System</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234c52cc'/%3E%3Cpath d='M7 23V10l9 7 9-7v13M7 10l9-4 9 4' fill='none' stroke='white' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="project.css">
+  <script src="project.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><nav class="navigation container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html#top" aria-label="OpenMAMS home"><span class="brand-symbol" aria-hidden="true">INVS</span>OpenMAMS</a>
+    <div class="nav-links"><a href="#overview">Overview</a><a href="#architecture">Architecture</a><a href="#carla-simulation">CARLA Simulation</a><a href="#real-world-experiments">Real-World Experiments</a><a href="#memory-native-non-terrestrial-networks">MemNTN</a><a href="#results">Results</a><a href="#demos">Demos</a><a href="#citation">Citation</a></div>
+    <a class="nav-code" href="https://github.com/SIAT-INVS/OpenMAMS">GitHub <span aria-hidden="true">↗</span></a>
+  </nav></header>
+  <main id="main"><section aria-label="Panoramic multi-agent system demonstration" class="header-video" id="top"><video aria-label="Panoramic multi-agent system: rotating COLMAP point cloud, three UAV trajectories, and semantic observation anchors." autoplay="" data-autoplay="" id="map-video" loop="" muted="" playsinline="" poster="assets/pmas-semantic-map-poster.jpg" preload="metadata"><source src="assets/pmas-semantic-map.mp4" type="video/mp4"/>Your browser does not support HTML video. <a href="assets/pmas-semantic-map.mp4">Download</a></video></section><section class="paper-intro" id="paper"><h1 class="project-label" id="openmams-open-sourced-multi-agent-memory-system">OpenMAMS: Open-Sourced Multi-Agent Memory System</h1>
+<h2 class="paper-title" id="memory-in-the-sky-low-altitude-question-answering-with-multi-agent-memory-aggregation">Memory in the Sky: Low-Altitude Question Answering with Multi-Agent Memory Aggregation</h2>
+<p class="authors"><span class="author">Chengyang Li<sup>1</sup></span>, <span class="author">Yujie Wan<sup>2</sup></span>, <span class="author">Shuai Wang<sup>3</sup></span>, <span class="author">Kejiang Ye<sup>3</sup></span>, <span class="author">Weijie Yuan<sup>2</sup></span>, <span class="author">Boyu Zhou<sup>2</sup></span>, <span class="author">Yik-Chung Wu<sup>1</sup></span>, <span class="author">Chengzhong Xu<sup>4</sup></span>, and <span class="author">Huseyin Arslan<sup>5</sup></span></p>
+<p class="affiliations"><sup>1</sup>The University of Hong Kong · <sup>2</sup>Southern University of Science and Technology<br/>
+<sup>3</sup>Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences<br/>
+<sup>4</sup>University of Macau · <sup>5</sup>Istanbul Medipol University</p>
+
+
+
+<blockquote>
+<p>OpenMAMS aggregates distributed UAV memories for long-horizon question answering. Our memory-centric framework measures what each candidate memory adds, then jointly selects UAVs and allocates transmit power under communication constraints.</p>
+</blockquote>
+</section><section class="section tinted" id="overview"><div class="container"><h2>Overview</h2>
+<p>OpenMAMS is the multi-agent memory system and benchmarking platform developed for <strong>low-altitude question answering (LAQA)</strong>. It connects aerial observations with a ground memory server so that users can ask about objects, locations, and events observed over time.</p>
+<p>The platform described in the paper supports:</p>
+<ul>
+<li><strong>Multi-agent data collection:</strong> images, timestamps, 6D poses, and LiDAR point clouds in CARLA.</li>
+<li><strong>Memory construction and retrieval:</strong> VLM captioning, text embeddings, and a vector database for spatiotemporal queries.</li>
+<li><strong>Memory quality evaluation:</strong> a generative adversarial exam (GAE) measures the knowledge gap between candidate observations and the current memory.</li>
+<li><strong>Memory-centric resource allocation:</strong> MemCen jointly selects UAV memories and allocates transmit power, with penalty successive optimization (PSO) and learning to memorize (L2M) solvers.</li>
+</ul>
+</div></section><section class="section" id="architecture"><div class="container"><h2>Architecture</h2>
+<p><a href="source/assets/architecture.png" rel="noopener" target="_blank"><img alt="LAQA architecture: distributed UAV observations are uploaded to a ground server for memory construction and question answering." decoding="async" loading="lazy" src="assets/architecture.webp"/></a></p>
+<p>Selected observations are captioned and stored with their timestamps and poses. The resulting global memory supports retrieval-augmented question answering.</p>
+<details>
+<summary><strong>How does GAE evaluate a candidate memory?</strong></summary>
+<p><a href="source/assets/generative-adversarial-exam.png" rel="noopener" target="_blank"><img alt="GAE pipeline with pilot upload, exam generation, and practice testing against the current memory." decoding="async" loading="lazy" src="assets/generative-adversarial-exam.webp"/></a></p>
+<p>GAE generates questions grounded in candidate observations and tests whether the current global memory can answer them. Unanswered questions reveal missing knowledge and quantify the value of acquiring that candidate memory. MemCen combines this task utility with payload sizes, channel conditions, interference, and power constraints.</p>
+</details>
+</div></section><section class="section tinted" id="carla-simulation"><div class="container"><h2>CARLA Simulation</h2>
+<h3 id="town04-multi-uav-inspection">Town04: multi-UAV inspection</h3>
+<p><a href="source/assets/carla-town04.png" rel="noopener" target="_blank"><img alt="CARLA Town04 ten-UAV demo showing UAV locations, image frames, and their associated captions." decoding="async" loading="lazy" src="assets/carla-town04.webp"/></a></p>
+<p>Ten UAVs inspect different regions of Town04 and collect complementary observations for memory construction. The demo shows their locations, sample image frames, and associated captions. Questions ask whether an object is present, where it is located, and which UAV observed it.</p>
+<h3 id="town05-dynamic-and-heterogeneous-uavs">Town05: dynamic and heterogeneous UAVs</h3>
+<table class="figure-table">
+<tr>
+<td align="center" valign="middle"><a href="source/assets/carla-town05.png" rel="noopener" target="_blank"><img alt="CARLA Town05 building geometry, ground station, and flight trajectories of four fixed-wing and six multirotor UAVs." decoding="async" loading="lazy" src="assets/carla-town05.webp"/></a></td>
+<td align="center" valign="middle"><a href="source/assets/carla-town05-blockage.png" rel="noopener" target="_blank"><img alt="Time-varying blockage across the ten UAV links in Town05, with per-UAV blockage ratios." decoding="async" loading="lazy" src="assets/carla-town05-blockage.webp"/></a></td>
+</tr>
+<tr>
+<td align="center">UAV trajectories and ground station</td>
+<td align="center">Time-varying link blockage</td>
+</tr>
+</table>
+<p>Four fixed-wing and six multirotor UAVs conduct a 200-second search-and-rescue mission in Town05. Their trajectories, image workloads, and building blockage create varying communication conditions. MemCen selects complementary memories and adapts transmit power to support downstream question answering.</p>
+</div></section><section class="section" id="real-world-experiments"><div class="container"><h2>Real-World Experiments</h2>
+<h3 id="panoramic-multi-agent-system-pmas">Panoramic multi-agent system (PMAS)</h3>
+<p><a href="source/assets/pmas-benchmark.png" rel="noopener" target="_blank"><img alt="PMAS field experiment with three UAVs, reconstructed trajectories, onboard observations, and spatial question answering." decoding="async" loading="lazy" src="assets/pmas-benchmark.webp"/></a></p>
+<p>Three panoramic UAVs collect complementary observations along distinct routes. Their observations are registered in a shared 3D coordinate frame for object-presence and spatial-grounding questions. The aerial data are collected in the field, while communication is evaluated through offline channel replay.</p>
+<h3 id="uav-to-ground-robot-memory-reuse">UAV-to-ground-robot memory reuse</h3>
+<p><a href="source/assets/uav-ground-robot.png" rel="noopener" target="_blank"><img alt="A robot dog answers questions and navigates to a basketball court using previously acquired UAV memory." decoding="async" loading="lazy" src="assets/uav-ground-robot.webp"/></a></p>
+<p>A robot dog reuses aerial memory to answer environmental questions and navigate to a queried location.</p>
+</div></section><section class="section tinted" id="memory-native-non-terrestrial-networks"><div class="container"><h2>Memory-Native Non-Terrestrial Networks</h2>
+<p>MemNTN extends memory-based remote question answering to satellite networks through memory management, fusion, and valuation.</p>
+<p><a href="source/assets/memntn_fig1.png" rel="noopener" target="_blank"><img alt="MemNTN: UAV perception in Pittsburgh, a satellite constellation, and remote question answering in Istanbul." decoding="async" loading="lazy" src="assets/memntn_fig1.webp"/></a></p>
+<p><a href="source/assets/memntn_fig4.png" rel="noopener" target="_blank"><img alt="MemNTN evaluation results: LEOPath and CARLA setup, the 400-satellite benchmark, and constellation-size comparisons." decoding="async" loading="lazy" src="assets/memntn_fig4.webp"/></a></p>
+<p>The LEOPath and CARLA evaluation compares remote question-answering accuracy and end-to-end throughput across satellite constellation sizes. MemNTN achieves 97.8% QA accuracy in the 400-satellite case, outperforming the compared baselines.</p>
+</div></section><section class="section" id="results"><div class="container"><h2>Results</h2>
+<div aria-label="Table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>Evaluation</th>
+<th>Setting</th>
+<th style="text-align: right;">MemCen QA accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARLA Town04</td>
+<td>Static communication conditions</td>
+<td style="text-align: right;"><strong>92.4%</strong></td>
+</tr>
+<tr>
+<td>CARLA Town05</td>
+<td>Dynamic channels, heterogeneous UAVs, and building blockage</td>
+<td style="text-align: right;"><strong>84.0%</strong></td>
+</tr>
+<tr>
+<td>Real PMAS</td>
+<td>Real aerial observations with offline channel replay</td>
+<td style="text-align: right;"><strong>88.5%</strong></td>
+</tr>
+</tbody>
+</table></div>
+</div></section><section class="section tinted" id="demos"><div class="container"><h2>Demos</h2>
+<h3 id="town04-four-uav-captioned-views">Town04 · Four-UAV captioned views</h3>
+<figure class="demo-figure">
+<div class="video-frame"><video aria-label="Town04 demo: four UAV views with captions" autoplay="" controls="" data-autoplay="" loop="" muted="" playsinline="" poster="assets/town04_4uavs-poster.jpg" preload="none"><source src="assets/town04_4uavs.mp4" type="video/mp4"/>Your browser does not support HTML video. <a href="assets/town04_4uavs.mp4">Download</a></video></div>
+</figure>
+<p>The Town04 demo shows four virtual UAV camera views in a 2 × 2 layout, with
+captions describing each UAV's observations. See the
+<a href="assets.html">asset descriptions</a> for recording details.</p>
+<h3 id="town05-ten-uav-captioned-views">Town05 · Ten-UAV captioned views</h3>
+<figure class="demo-figure">
+<div class="video-frame"><video aria-label="Town05 demo: ten UAV views with captions" autoplay="" controls="" data-autoplay="" loop="" muted="" playsinline="" poster="assets/town05_10uavs-poster.jpg" preload="none"><source src="assets/town05_10uavs.mp4" type="video/mp4"/>Your browser does not support HTML video. <a href="assets/town05_10uavs.mp4">Download</a></video></div>
+</figure>
+<p>The Town05 demo shows ten virtual UAV cameras following a closed road route in a
+5 × 2 layout. Captions update every three seconds. See the
+<a href="assets.html">asset descriptions</a> for recording details.</p>
+
+<h3 id="robot-dog">Robot Dog · UAV-to-ground memory reuse</h3>
+<figure class="demo-figure"><div class="video-frame">
+<video aria-label="Robot dog navigating to a basketball court using aerial memory" autoplay="" controls="" data-autoplay="" loop="" muted="" playsinline="" poster="assets/robot-dog-poster.jpg" preload="none">
+<source src="assets/robot-dog.mp4" type="video/mp4"/>
+    Your browser does not support HTML video. <a href="assets/robot-dog.mp4">Download</a>
+</video>
+</div></figure>
+<p>A robot dog reuses aerial memory to answer environmental questions and navigate to a queried location. The video shows the robot navigating to a basketball court, alongside first-person, third-person, and point-cloud views.</p>
+</div></section><section class="section" id="citation"><div class="container"><h2>Citation</h2>
+<p>If you find this work useful, please cite:</p>
+<h3 id="journal-version">Journal version</h3>
+<div class="citation-block"><button aria-label="Copy citation 1 BibTeX" class="copy-button" data-copy="bibtex-0">Copy BibTeX</button><pre><code class="language-bibtex" id="bibtex-0">@misc{li2026memoryinthesky,
+  title  = {Memory in the Sky: Low-Altitude Question Answering with Multi-Agent Memory Aggregation},
+  author = {Li, Chengyang and Wan, Yujie and Wang, Shuai and Ye, Kejiang and Yuan, Weijie and Zhou, Boyu and Wu, Yik-Chung and Xu, Chengzhong and Arslan, Huseyin},
+  year   = {2026},
+  eprint = {2609.35431},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.RO},
+  url    = {https://arxiv.org/abs/2609.35431}
+}
+</code></pre></div>
+<h3 id="conference-version">Conference version</h3>
+<div class="citation-block"><button aria-label="Copy citation 2 BibTeX" class="copy-button" data-copy="bibtex-1">Copy BibTeX</button><pre><code class="language-bibtex" id="bibtex-1">@inproceedings{li2026memory,
+  title={Memory centric power allocation for multi-agent embodied question answering},
+  author={C. Li and S. Wang and K. Ye and W. Yuan and B. Zhou and Y.-C. Wu and C. Xu and H. Arslan},
+  booktitle={Proc. GLOBECOM},
+  year={2026}
+}
+</code></pre></div>
+<h3 id="magazine-version">Magazine version</h3>
+<div class="citation-block"><button aria-label="Copy citation 3 BibTeX" class="copy-button" data-copy="bibtex-2">Copy BibTeX</button><pre><code class="language-bibtex" id="bibtex-2">@article{li2026memntn,
+  title={Memory-Native Non-Terrestrial Networks for Embodied Intelligence},
+  author={Li, Chengyang and Wang, Yikun and He, Jiahui and Wan, Yujie and Wang, Shuai and Wu, Yuan and Wu, Yik-Chung and Xu, Chengzhong and Arslan, Huseyin},
+  journal={IEEE Communications Standards Magazine},
+  year={2026}
+}
+</code></pre></div>
+</div></section><section class="section tinted" id="contact"><div class="container"><h2>Contact</h2>
+<ul>
+<li><strong>Chengyang Li</strong>: <a href="https://github.com/KevinLADLee">KevinLADLee</a></li>
+<li><strong>Shuai Wang</strong>: <a href="https://github.com/bearswang">bearswang</a></li>
+</ul></div></section></main>
+  <p class="container copy-status" id="copy-status" role="status" aria-live="polite"></p>
+  <footer class="site-footer"><div class="container"><a class="wordmark" href="index.html#top">OpenMAMS</a><a href="https://github.com/SIAT-INVS/OpenMAMS">GitHub ↗</a></div></footer>
+</body>
+</html>
