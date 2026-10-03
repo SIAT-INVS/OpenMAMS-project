@@ -11,7 +11,7 @@ import markdown
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "source"
+SOURCE = ROOT / "content"
 REPOSITORY = "https://github.com/SIAT-INVS/OpenMAMS"
 NAV_ITEMS = [
     ("overview", "Overview"),
@@ -51,7 +51,7 @@ def wrap(tag, name, **attrs):
     return wrapper
 
 
-document = read_markdown(SOURCE / "README.md")
+document = read_markdown(SOURCE / "project.md")
 # Installation/module details stay in the code repository. Keep the following
 # demonstrations as their own section without modifying the source snapshot.
 code_heading = document.find("h2", id="code")
@@ -109,14 +109,14 @@ for image in list(document.find_all("img")):
         image["decoding"] = "async"
         image.attrs.pop("width", None)
         if image.parent.name != "a":
-            wrap(image, "a", href=f"source/assets/{name}", target="_blank", rel="noopener")
+            wrap(image, "a", href=f"assets/{Path(name).stem}.webp", target="_blank", rel="noopener")
 
 for link in document.find_all("a", href=True):
     href = link["href"]
     if href == "assets/README.md":
         link["href"] = "assets.html"
     elif href.startswith("assets/") and not href.endswith(".mp4"):
-        link["href"] = "source/" + href
+        link["href"] = f"assets/{Path(href).stem}.webp"
         link["target"] = "_blank"
         link["rel"] = "noopener"
     elif href.startswith(("ntn/", "uav_data_recorder/")):
@@ -277,11 +277,11 @@ def page_html(title, body, navigation):
 navigation = "".join(f'<a href="#{anchor}">{label}</a>' for anchor, label in NAV_ITEMS)
 (ROOT / "index.html").write_text(page_html("OpenMAMS: Open-Sourced Multi-Agent Memory System", str(main), navigation), encoding="utf-8")
 
-asset_document = read_markdown(SOURCE / "assets" / "README.md")
+asset_document = read_markdown(SOURCE / "assets.md")
 asset_original = content_text(asset_document)
 for link in asset_document.find_all("a", href=True):
     if not link["href"].startswith(("https:", "http:", "#")):
-        link["href"] = "source/assets/" + link["href"]
+        link["href"] = "assets/" + link["href"]
 for table in asset_document.find_all("table"):
     table["class"] = "data-table"
     wrapper = asset_document.new_tag("div", attrs={"class": "table-scroll", "tabindex": "0", "role": "region", "aria-label": "Asset table"})

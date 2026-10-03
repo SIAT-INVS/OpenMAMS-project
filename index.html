@@ -42,22 +42,22 @@
 <li><strong>Memory-centric resource allocation:</strong> MemCen jointly selects UAV memories and allocates transmit power, with penalty successive optimization (PSO) and learning to memorize (L2M) solvers.</li>
 </ul>
 </div></section><section class="section" id="architecture"><div class="container"><h2>Architecture</h2>
-<p><a href="source/assets/architecture.png" rel="noopener" target="_blank"><img alt="LAQA architecture: distributed UAV observations are uploaded to a ground server for memory construction and question answering." decoding="async" loading="lazy" src="assets/architecture.webp"/></a></p>
+<p><a href="assets/architecture.webp" rel="noopener" target="_blank"><img alt="LAQA architecture: distributed UAV observations are uploaded to a ground server for memory construction and question answering." decoding="async" loading="lazy" src="assets/architecture.webp"/></a></p>
 <p>Selected observations are captioned and stored with their timestamps and poses. The resulting global memory supports retrieval-augmented question answering.</p>
 <details>
 <summary><strong>How does GAE evaluate a candidate memory?</strong></summary>
-<p><a href="source/assets/generative-adversarial-exam.png" rel="noopener" target="_blank"><img alt="GAE pipeline with pilot upload, exam generation, and practice testing against the current memory." decoding="async" loading="lazy" src="assets/generative-adversarial-exam.webp"/></a></p>
+<p><a href="assets/generative-adversarial-exam.webp" rel="noopener" target="_blank"><img alt="GAE pipeline with pilot upload, exam generation, and practice testing against the current memory." decoding="async" loading="lazy" src="assets/generative-adversarial-exam.webp"/></a></p>
 <p>GAE generates questions grounded in candidate observations and tests whether the current global memory can answer them. Unanswered questions reveal missing knowledge and quantify the value of acquiring that candidate memory. MemCen combines this task utility with payload sizes, channel conditions, interference, and power constraints.</p>
 </details>
 </div></section><section class="section tinted" id="carla-simulation"><div class="container"><h2>CARLA Simulation</h2>
 <h3 id="town04-multi-uav-inspection">Town04: multi-UAV inspection</h3>
-<p><a href="source/assets/carla-town04.png" rel="noopener" target="_blank"><img alt="CARLA Town04 ten-UAV demo showing UAV locations, image frames, and their associated captions." decoding="async" loading="lazy" src="assets/carla-town04.webp"/></a></p>
+<p><a href="assets/carla-town04.webp" rel="noopener" target="_blank"><img alt="CARLA Town04 ten-UAV demo showing UAV locations, image frames, and their associated captions." decoding="async" loading="lazy" src="assets/carla-town04.webp"/></a></p>
 <p>Ten UAVs inspect different regions of Town04 and collect complementary observations for memory construction. The demo shows their locations, sample image frames, and associated captions. Questions ask whether an object is present, where it is located, and which UAV observed it.</p>
 <h3 id="town05-dynamic-and-heterogeneous-uavs">Town05: dynamic and heterogeneous UAVs</h3>
 <table class="figure-table">
 <tr>
-<td align="center" valign="middle"><a href="source/assets/carla-town05.png" rel="noopener" target="_blank"><img alt="CARLA Town05 building geometry, ground station, and flight trajectories of four fixed-wing and six multirotor UAVs." decoding="async" loading="lazy" src="assets/carla-town05.webp"/></a></td>
-<td align="center" valign="middle"><a href="source/assets/carla-town05-blockage.png" rel="noopener" target="_blank"><img alt="Time-varying blockage across the ten UAV links in Town05, with per-UAV blockage ratios." decoding="async" loading="lazy" src="assets/carla-town05-blockage.webp"/></a></td>
+<td align="center" valign="middle"><a href="assets/carla-town05.webp" rel="noopener" target="_blank"><img alt="CARLA Town05 building geometry, ground station, and flight trajectories of four fixed-wing and six multirotor UAVs." decoding="async" loading="lazy" src="assets/carla-town05.webp"/></a></td>
+<td align="center" valign="middle"><a href="assets/carla-town05-blockage.webp" rel="noopener" target="_blank"><img alt="Time-varying blockage across the ten UAV links in Town05, with per-UAV blockage ratios." decoding="async" loading="lazy" src="assets/carla-town05-blockage.webp"/></a></td>
 </tr>
 <tr>
 <td align="center">UAV trajectories and ground station</td>
@@ -67,15 +67,15 @@
 <p>Four fixed-wing and six multirotor UAVs conduct a 200-second search-and-rescue mission in Town05. Their trajectories, image workloads, and building blockage create varying communication conditions. MemCen selects complementary memories and adapts transmit power to support downstream question answering.</p>
 </div></section><section class="section" id="real-world-experiments"><div class="container"><h2>Real-World Experiments</h2>
 <h3 id="panoramic-multi-agent-system-pmas">Panoramic multi-agent system (PMAS)</h3>
-<p><a href="source/assets/pmas-benchmark.png" rel="noopener" target="_blank"><img alt="PMAS field experiment with three UAVs, reconstructed trajectories, onboard observations, and spatial question answering." decoding="async" loading="lazy" src="assets/pmas-benchmark.webp"/></a></p>
+<p><a href="assets/pmas-benchmark.webp" rel="noopener" target="_blank"><img alt="PMAS field experiment with three UAVs, reconstructed trajectories, onboard observations, and spatial question answering." decoding="async" loading="lazy" src="assets/pmas-benchmark.webp"/></a></p>
 <p>Three panoramic UAVs collect complementary observations along distinct routes. Their observations are registered in a shared 3D coordinate frame for object-presence and spatial-grounding questions. The aerial data are collected in the field, while communication is evaluated through offline channel replay.</p>
 <h3 id="uav-to-ground-robot-memory-reuse">UAV-to-ground-robot memory reuse</h3>
-<p><a href="source/assets/uav-ground-robot.png" rel="noopener" target="_blank"><img alt="A robot dog answers questions and navigates to a basketball court using previously acquired UAV memory." decoding="async" loading="lazy" src="assets/uav-ground-robot.webp"/></a></p>
+<p><a href="assets/uav-ground-robot.webp" rel="noopener" target="_blank"><img alt="A robot dog answers questions and navigates to a basketball court using previously acquired UAV memory." decoding="async" loading="lazy" src="assets/uav-ground-robot.webp"/></a></p>
 <p>A robot dog reuses aerial memory to answer environmental questions and navigate to a queried location.</p>
 </div></section><section class="section tinted" id="memory-native-non-terrestrial-networks"><div class="container"><h2>Memory-Native Non-Terrestrial Networks</h2>
 <p>MemNTN extends memory-based remote question answering to satellite networks through memory management, fusion, and valuation.</p>
-<p><a href="source/assets/memntn_fig1.png" rel="noopener" target="_blank"><img alt="MemNTN: UAV perception in Pittsburgh, a satellite constellation, and remote question answering in Istanbul." decoding="async" loading="lazy" src="assets/memntn_fig1.webp"/></a></p>
-<p><a href="source/assets/memntn_fig4.png" rel="noopener" target="_blank"><img alt="MemNTN evaluation results: LEOPath and CARLA setup, the 400-satellite benchmark, and constellation-size comparisons." decoding="async" loading="lazy" src="assets/memntn_fig4.webp"/></a></p>
+<p><a href="assets/memntn_fig1.webp" rel="noopener" target="_blank"><img alt="MemNTN: UAV perception in Pittsburgh, a satellite constellation, and remote question answering in Istanbul." decoding="async" loading="lazy" src="assets/memntn_fig1.webp"/></a></p>
+<p><a href="assets/memntn_fig4.webp" rel="noopener" target="_blank"><img alt="MemNTN evaluation results: LEOPath and CARLA setup, the 400-satellite benchmark, and constellation-size comparisons." decoding="async" loading="lazy" src="assets/memntn_fig4.webp"/></a></p>
 <p>The LEOPath and CARLA evaluation compares remote question-answering accuracy and end-to-end throughput across satellite constellation sizes. MemNTN achieves 97.8% QA accuracy in the 400-satellite case, outperforming the compared baselines.</p>
 </div></section><section class="section" id="results"><div class="container"><h2>Results</h2>
 <div aria-label="Table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
