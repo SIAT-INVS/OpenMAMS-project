@@ -12,8 +12,15 @@ if (siteHeader) {
 // Only visible demonstrations play; a visitor's manual pause is respected.
 const videos = [...document.querySelectorAll("video[data-autoplay]")];
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+function isVideoVisible(video) {
+  const rect = video.getBoundingClientRect();
+  const width = Math.max(0, Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0));
+  const height = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+  return rect.width > 0 && rect.height > 0 && width * height / (rect.width * rect.height) >= 0.1;
+}
 const playback = new Map(videos.map(video => [video, {
-  visible: false, userPaused: false, automaticPauses: 0,
+  visible: isVideoVisible(video), userPaused: false, automaticPauses: 0,
+  pendingPlay: false, controlInteraction: -Infinity,
 }]));
 
 function pauseAutomatically(video) {
@@ -25,27 +32,46 @@ function pauseAutomatically(video) {
 
 function syncPlayback(video) {
   const state = playback.get(video);
+  state.visible = isVideoVisible(video);
   if (!state.visible || document.hidden || reducedMotion.matches) {
     pauseAutomatically(video);
-  } else if (!state.userPaused && video.paused) {
-    video.play().catch(() => {}); // Keep the poster visible if autoplay is blocked.
+  } else if (!state.userPaused && video.paused && !state.pendingPlay) {
+    state.pendingPlay = true;
+    // Rejections are retried on media readiness, page return, or a user gesture.
+    Promise.resolve(video.play()).catch(() => {}).finally(() => {
+      state.pendingPlay = false;
+    });
   }
 }
 
 videos.forEach(video => {
+  video.defaultMuted = true;
   video.muted = true;
-  // JavaScript handles visibility; the HTML attribute provides a no-JS fallback.
-  video.removeAttribute("autoplay");
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  // Preserve native muted autoplay, including Safari's visibility handling.
+  video.autoplay = !reducedMotion.matches;
+  const noteControlInteraction = () => {
+    if (video.controls) playback.get(video).controlInteraction = performance.now();
+  };
+  ["pointerdown", "touchstart", "keydown"].forEach(event =>
+    video.addEventListener(event, noteControlInteraction, { passive: true }));
   video.addEventListener("pause", () => {
     const state = playback.get(video);
     if (state.automaticPauses > 0) state.automaticPauses -= 1;
-    else state.userPaused = true;
+    else if (!document.hidden && isVideoVisible(video) &&
+        performance.now() - state.controlInteraction < 1500) state.userPaused = true;
   });
   video.addEventListener("play", () => {
     const state = playback.get(video);
     state.userPaused = false;
-    if (!state.visible || document.hidden) pauseAutomatically(video);
+    if (!isVideoVisible(video) || document.hidden) pauseAutomatically(video);
   });
+  ["loadedmetadata", "canplay"].forEach(event =>
+    video.addEventListener(event, () => syncPlayback(video)));
+  syncPlayback(video);
 });
 
 if ("IntersectionObserver" in window) {
@@ -61,7 +87,18 @@ if ("IntersectionObserver" in window) {
 }
 
 document.addEventListener("visibilitychange", () => videos.forEach(syncPlayback));
-reducedMotion.addEventListener("change", () => videos.forEach(syncPlayback));
+window.addEventListener("pageshow", () => videos.forEach(syncPlayback));
+reducedMotion.addEventListener("change", () => videos.forEach(video => {
+  video.autoplay = !reducedMotion.matches;
+  syncPlayback(video);
+}));
+function retryOnGesture(event) {
+  // Let native player controls handle their own play/pause interaction.
+  if (event.target instanceof Element && event.target.closest("video[controls]")) return;
+  videos.forEach(syncPlayback);
+}
+["touchend", "click", "keydown"].forEach(event =>
+  document.addEventListener(event, retryOnGesture, { passive: true }));
 
 document.querySelectorAll("[data-copy]").forEach(button => {
   button.addEventListener("click", async () => {
