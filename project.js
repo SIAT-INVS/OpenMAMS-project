@@ -1,5 +1,34 @@
 "use strict";
 
+// Keep the compact mobile navigation keyboard-accessible and close it after use.
+const navigation = document.querySelector(".navigation");
+const menuToggle = document.querySelector(".menu-toggle");
+if (navigation && menuToggle) {
+  const closeMenu = () => menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.hidden = false;
+  navigation.classList.add("menu-ready");
+  menuToggle.addEventListener("click", () => {
+    const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!expanded));
+  });
+  navigation.addEventListener("click", event => {
+    if (event.target.closest("a")) closeMenu();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+  document.addEventListener("click", event => {
+    if (!navigation.contains(event.target)) closeMenu();
+  });
+  navigation.addEventListener("focusout", event => {
+    if (!navigation.contains(event.relatedTarget)) closeMenu();
+  });
+  window.matchMedia("(max-width: 1100px)").addEventListener("change", closeMenu);
+}
+
 // Reserve space for the navbar in the video height limit and section anchor offset.
 const siteHeader = document.querySelector(".site-header");
 if (siteHeader) {
