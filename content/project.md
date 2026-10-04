@@ -32,7 +32,8 @@ OpenMAMS is the multi-agent memory system and benchmarking platform developed fo
 
 The platform described in the paper supports:
 
-- **Multi-agent data collection:** perspective images, 360° panoramic images and videos, timestamps, 6D poses, and LiDAR point clouds in CARLA.
+- **Multi-agent data collection:** perspective images, timestamps, 6D poses, and LiDAR point clouds in CARLA.
+- **Panoramic multi-agent system:** 360° image and video capture across multiple UAVs, with rectified FPV views and VLM-generated captions.
 - **Memory construction and retrieval:** VLM captioning, text embeddings, and a vector database for spatiotemporal queries.
 - **Memory quality evaluation:** a generative adversarial exam (GAE) measures the knowledge gap between candidate observations and the current memory.
 - **Memory-centric resource allocation:** MemCen jointly selects UAV memories and allocates transmit power, with penalty successive optimization (PSO) and learning to memorize (L2M) solvers.
