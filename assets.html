@@ -68,13 +68,6 @@ raw observations and the QA benchmark evidence are unchanged. The map is enlarge
 </thead>
 <tbody>
 <tr>
-<td><a href="assets/town04_4uavs.mp4">Town04, K=4</a></td>
-<td>15 s</td>
-<td>960 × 540</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">2.23 MB</td>
-</tr>
-<tr>
 <td><a href="assets/town05_10uavs.mp4">Town05, K=10</a></td>
 <td>15 s</td>
 <td>1600 × 360</td>
@@ -83,8 +76,39 @@ raw observations and the QA benchmark evidence are unchanged. The map is enlarge
 </tr>
 </tbody>
 </table></div>
-<p>Both captioned animations loop automatically and are 15 seconds long at 10 FPS.
-Town04 uses a 2 × 2 view layout; Town05 uses a 5 × 2 view layout. Both are served as compressed MP4 videos.</p>
+<p>The Town05 captioned demo loops automatically and is 15 seconds long at 10 FPS.
+It uses a 5 × 2 view layout and is served as a compressed MP4 video.</p>
+<h2 id="panoramic-three-uav-demos">Panoramic three-UAV demos</h2>
+<div aria-label="Asset table" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>Video</th>
+<th>Duration</th>
+<th>Resolution</th>
+<th style="text-align: right;">FPS</th>
+<th style="text-align: right;">Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="assets/carla-panorama-3uavs.mp4">CARLA panoramas, K=3</a></td>
+<td>15 s</td>
+<td>1920 × 1080</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">4.73 MB</td>
+</tr>
+<tr>
+<td><a href="assets/real-panorama-3uavs.mp4">Real-world panoramas, K=3</a></td>
+<td>15 s</td>
+<td>1920 × 1080</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">7.83 MB</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each video uses three columns, with a 360° panorama above a rectified 90° FPV view for each UAV. Qwen3-VL 8B captions are generated offline from the FPV images and update every four seconds of playback.</p>
+<p>The website clips retain the first 15 seconds of the original 20-second videos at the same 2× playback speed: 30 seconds of source footage per clip. The CARLA clip covers simulation seconds 0–30 in Town05; the real-world clip covers source-video seconds 50–80 for each UAV. Panorama and FPV views use the same frame within each UAV; the real-world sources are aligned by video-relative time, not a verified shared clock.</p>
+<p>Both clips are compressed H.264 MP4s with fast-start playback, 8-bit YUV 4:2:0 pixel format, and no audio. The original 20-second master videos are preserved locally. Sizes above use decimal MB.</p>
 <h2 id="robot-dog-demo">Robot Dog demo</h2>
 <p><a href="assets/robot-dog.mp4">Robot Dog video</a>: 15.9 seconds, 1280 × 720, 30 FPS. The robot navigates to a basketball court, with first-person, third-person, and point-cloud views. Playback is muted by default; the native controls can enable the original audio.</p>
 <h2 id="memntn-paper-figures">MemNTN paper figures</h2>

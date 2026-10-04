@@ -25,7 +25,6 @@ NAV_ITEMS = [
 ]
 ANIMATIONS = {
     "pmas-semantic-map.webp": "pmas-semantic-map",
-    "town04_4uavs.gif": "town04_4uavs",
     "town05_10uavs.webp": "town05_10uavs",
 }
 
@@ -115,6 +114,11 @@ for link in document.find_all("a", href=True):
     href = link["href"]
     if href == "assets/README.md":
         link["href"] = "assets.html"
+    elif href.startswith("assets/") and (
+        href.endswith(".pdf") or (href.endswith(".png") and (ROOT / href).is_file())
+    ):
+        link["target"] = "_blank"
+        link["rel"] = "noopener"
     elif href.startswith("assets/") and not href.endswith(".mp4"):
         link["href"] = f"assets/{Path(href).stem}.webp"
         link["target"] = "_blank"

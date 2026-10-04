@@ -79,7 +79,7 @@ Four fixed-wing and six multirotor UAVs conduct a 200-second search-and-rescue m
 
 ### Panoramic multi-agent system (PMAS)
 
-![PMAS field experiment with three UAVs, reconstructed trajectories, onboard observations, and spatial question answering.](assets/pmas-benchmark.png)
+[![PMAS field experiment: three-UAV inspection team, COLMAP point cloud and trajectories, scene graphs, and captioned images with question-answering examples.](assets/pmas-real-demo.webp)](assets/pmas-real-demo.png)
 
 Three panoramic UAVs collect complementary observations along distinct routes. Their observations are registered in a shared 3D coordinate frame for object-presence and spatial-grounding questions. The aerial data are collected in the field, while communication is evaluated through offline channel replay.
 
@@ -118,16 +118,6 @@ The following modules are available and install independently:
 
 ### Demos
 
-#### Town04 · Four-UAV captioned views
-
-<p align="center">
-  <img src="assets/town04_4uavs.gif" width="100%" alt="Town04 demo: four UAV views with captions">
-</p>
-
-The Town04 demo shows four virtual UAV camera views in a 2 × 2 layout, with
-captions describing each UAV's observations. See the
-[asset descriptions](assets/README.md) for recording details.
-
 #### Town05 · Ten-UAV captioned views
 
 <p align="center">
@@ -137,6 +127,22 @@ captions describing each UAV's observations. See the
 The Town05 demo shows ten virtual UAV cameras following a closed road route in a
 5 × 2 layout. Captions update every three seconds. See the
 [asset descriptions](assets/README.md) for recording details.
+
+#### CARLA · Three-UAV panoramic views
+
+<figure class="demo-figure">
+<div class="video-frame"><video aria-label="CARLA demo: three UAV panoramas and captioned rectified FPV views" autoplay controls data-autoplay loop muted playsinline poster="assets/carla-panorama-3uavs-poster.jpg" preload="none"><source src="assets/carla-panorama-3uavs.mp4" type="video/mp4">Your browser does not support HTML video. <a href="assets/carla-panorama-3uavs.mp4">Download</a></video></div>
+</figure>
+
+Three virtual UAV cameras follow a closed route in CARLA Town05, with each column pairing a 360° panorama above its rectified FPV view. The 15-second clip plays at 2× speed, with Qwen3-VL 8B captions describing each UAV's FPV observations.
+
+#### Real World · Three-UAV panoramic views
+
+<figure class="demo-figure">
+<div class="video-frame"><video aria-label="Real-world demo: three UAV panoramas and captioned rectified FPV views" autoplay controls data-autoplay loop muted playsinline poster="assets/real-panorama-3uavs-poster.jpg" preload="none"><source src="assets/real-panorama-3uavs.mp4" type="video/mp4">Your browser does not support HTML video. <a href="assets/real-panorama-3uavs.mp4">Download</a></video></div>
+</figure>
+
+Three UAVs capture panoramic views during a real-world flight, shown above the corresponding rectified FPV images in a three-column layout. The 15-second clip plays at 2× speed, with Qwen3-VL 8B captions describing each UAV's FPV observations.
 
 ## Citation
 

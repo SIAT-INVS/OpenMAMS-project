@@ -11,7 +11,7 @@ const port = Number(process.env.OPENMAMS_PREVIEW_PORT || 8000);
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.webp': 'image/webp', '.jpg': 'image/jpeg',
   '.png': 'image/png', '.gif': 'image/gif', '.md': 'text/plain; charset=utf-8',
-  '.mp4': 'video/mp4', '.svg': 'image/svg+xml' };
+  '.mp4': 'video/mp4', '.svg': 'image/svg+xml', '.pdf': 'application/pdf' };
 const server = createServer(async (request, response) => {
   if (!['GET', 'HEAD'].includes(request.method)) {
     response.writeHead(405).end(); return;
